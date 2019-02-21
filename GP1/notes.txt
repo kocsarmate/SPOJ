@@ -1,0 +1,51 @@
+NOTATIONS
+
+n: the length of the series
+a(i): the i-th element (indexed from 1 to n)
+r: the ratio
+S: the sum of all elements
+
+-----
+
+ASSUMPTIONS
+
+r > 0
+a(1) > 0
+S + a(n + 1) fits in a 64-bit unsigned integer
+
+-----
+
+Based on the definition of geometric progression:
+
+	a(3) == a(1) * r^2
+
+	a(n - 2) == a(1) * r^(n - 3)
+
+	S == a(1) * (r^n - 1) / (r - 1)
+
+The following equation can be derived from theese formulas:
+
+	(a(n - 2) * r^3) + S == (a(3) / r^2) + (S * r)
+
+It is useful, because it contains only r, and known values (a(3), a(n - 2) and S).
+
+-----
+
+ALGORITHM
+
+First, we check if a(3) == a(n - 2). If so, then r == 1, and the problem is trivial. Otherwise, we look for an r
+(starting from 2 incrementally), which satisfies the following equation:
+
+	(a(n - 2) * r^3) + S == (a(3) / r^2) + (S * r)
+
+If such r is found, n, and the elements of the series can be easily calculated.
+
+-----
+
+FURTHER IDEAS
+
+A quintic (fifth degree polynomial) equation can be written for r, using a(3), a(n - 2) and S as coefficents:
+
+	(a(n - 2) * r^5) - (S * r^3) + (S * r^2) - a(3) == 0
+	
+Maybe some solving algorithm could be used to find r more effectively.
